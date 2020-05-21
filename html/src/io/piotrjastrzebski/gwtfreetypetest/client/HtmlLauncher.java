@@ -3,6 +3,8 @@ package io.piotrjastrzebski.gwtfreetypetest.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
+import com.badlogic.gdx.graphics.g2d.freetype.gwt.FreetypeInjector;
+import com.badlogic.gdx.graphics.g2d.freetype.gwt.inject.OnCompletion;
 import io.piotrjastrzebski.gwtfreetypetest.GwtFreetypeGame;
 
 public class HtmlLauncher extends GwtApplication {
@@ -47,5 +49,16 @@ public class HtmlLauncher extends GwtApplication {
         @Override
         public ApplicationListener createApplicationListener () {
                 return new GwtFreetypeGame();
+        }
+
+
+        @Override
+        public void onModuleLoad () {
+                FreetypeInjector.inject(new OnCompletion() {
+                        @Override
+                        public void run () {
+                                HtmlLauncher.super.onModuleLoad();
+                        }
+                });
         }
 }
